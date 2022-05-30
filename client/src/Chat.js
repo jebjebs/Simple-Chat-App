@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import ScrollToBottom from "react-scroll-to-bottom";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+
 
 function Chat({ socket, username, room }) {
     const [currentMessage, setCurrentMessage] = useState("");
@@ -30,43 +33,56 @@ function Chat({ socket, username, room }) {
         });
     }, [socket]);
 
+    
     return (
-        <div className="chat-window">
-            <div className="chat-header">
-                <p>{room}</p>
+        <div className="card chat-window">
+            <div className="card-header bg-primary">
+                <h4 className="text-light mt-1">{room}</h4>
             </div>
-            <div className="chat-body">
-                <ScrollToBottom className="message-container">
+            <div className="card-body pt-4 overflow-auto chat">
                     {messageList.map((messageContent) => {
                         return (
-                            <div className="message" id={username === messageContent.author ? "you" : "other"}>
-                                <div>
-                                    <div className="message-content">
+                            <div className="row">
+                                <div className={username === messageContent.author ? "col-12 d-flex align-items-end flex-column" : "col-12"}>
+                                    <div className={username === messageContent.author ? "message-content user-message" : "message-content"}>
                                         <p>{messageContent.message}</p>
                                     </div>
-                                    <div className="message-meta">
-                                        <p id="time">{messageContent.time}</p>
-                                        <p id="author">{username === messageContent.author ? "You" : messageContent.author}</p>
+
+                                    {/* Displays the message data (time and author) */}
+                                    <div className="message-meta mx-2 mb-2">
+                                        <span className="small text-muted">{messageContent.time}</span>
+                                        {/* Show username only if user is not the sender of message */}
+                                        {username !== messageContent.author && 
+                                            <span className="small fw-bold ms-1">{messageContent.author}</span>
+                                        }
                                     </div>
                                 </div>
                             </div>
                         );
                     })}
-                </ScrollToBottom>
             </div>
-            <div className="chat-footer">
-                <input 
-                    type="text" 
-                    value={currentMessage}
-                    placeholder="Hey..." 
-                    onChange={(event) => { 
-                        setCurrentMessage(event.target.value);
-                    }} 
-                    onKeyPress={(event) => {
-                        event.key === "Enter" && sendMessage();
-                    }}
-                />
-                <button onClick={sendMessage}>&#9658;</button> { /* call sendMessage function when clicked*/ }
+            <div className="card-footer">
+                <div className="input-group">
+                    <input 
+                        type="text" 
+                        className="form-control"
+                        value={currentMessage} 
+                        placeholder="Send a message..."
+                        onChange={(event) => { 
+                            setCurrentMessage(event.target.value);
+                        }} 
+                        onKeyPress={(event) => {
+                            event.key === "Enter" && sendMessage();
+                        }}
+                    />
+                    <button 
+                        className="btn btn-outline-secondary" 
+                        type="button" 
+                        onClick={sendMessage}
+                    >
+                        <FontAwesomeIcon icon={faPaperPlane} />
+                    </button>
+                </div>
             </div>
         </div>
     );
