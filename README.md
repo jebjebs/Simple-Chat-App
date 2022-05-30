@@ -1,8 +1,8 @@
 # Simple-Chat-App
 A simple chat app created using ReactJS and Socket.IO. The app allows multiple users to join a room and send & receive messages in real time.
 
+<img width="1440" alt="Screen Shot 2022-05-30 at 5 16 24 PM" src="https://user-images.githubusercontent.com/58137977/170960602-2f2e14bf-63dc-4595-956c-9850e658ed0d.png">
 
-<img width="1440" alt="Screen Shot 2022-05-29 at 7 37 52 PM" src="https://user-images.githubusercontent.com/58137977/170866101-bb311368-241e-4b3c-ad0c-0c39240d63de.png">
 
 
 ## Instructions
